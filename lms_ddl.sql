@@ -1,10 +1,10 @@
 create table course
 (
-    course_id   int not null
+    course_id   int          not null
         primary key,
-    course_name int null,
-    credits     int null, 
-    course_desc int null
+    course_name varchar(50)  null,
+    credits     int          null,
+    course_desc varchar(100) null
 );
 
 create table instuctor
@@ -45,7 +45,7 @@ create table student
     student_id    int auto_increment
         primary key,
     student_name  varchar(50)  null,
-    sex           char         null, --F,M
+    sex           char         null, -- F,M
     address       varchar(200) null,
     phone         varchar(20)  null,
     major         varchar(5)   null,
