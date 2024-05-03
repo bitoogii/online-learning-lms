@@ -49,9 +49,7 @@ create table student
     address       varchar(200) null,
     phone         varchar(20)  null,
     major         varchar(5)   null,
-    date_of_birth date         null,
-    constraint student_pk
-        unique (student_id)
+    date_of_birth date         null
 );
 
 create table student_course_enrollment
