@@ -39,8 +39,18 @@
 -- 20) Retrieve the list of students who have not enrolled in any course.
 
 -- 21) Retrieve the list of instructors who are teaching more than one course.
+SELECT *
+FROM instructor i
+WHERE i.instructor_id IN
+      (SELECT i1.instructor_id
+       FROM instructor i1
+                JOIN course_session cs
+                     ON i1.instructor_id = cs.instructor_id
+       GROUP BY i1.instructor_id
+       HAVING COUNT(*) > 1);
 
 -- 22) Retrieve the list of students who have not submitted an assignment for a specific course.
+
 
 -- 23) Retrieve the list of courses that have the highest average grade.
 
