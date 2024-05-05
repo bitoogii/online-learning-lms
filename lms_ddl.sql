@@ -31,11 +31,11 @@ create table assignment
 (
     assignment_id int      not null
         primary key,
-    course_id     int      not null,
+    course_session_id     int      not null,
     start_date    datetime not null,
     due_date      datetime not null,
     constraint assignment_course_session_fk
-        foreign key (course_id) references course_session (course_session_id)
+        foreign key (course_session_id) references course_session (course_session_id)
 );
 
 create table student
