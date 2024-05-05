@@ -51,13 +51,13 @@ create table student_course_enrollment
     student_course_id int auto_increment
         primary key,
     student_id        int           not null,
-    course_id         int           not null,
+    course_session_id int           not null,
     enroll_status     int default 0 not null, -- 0: Enrolled, 1: Completed, 2: Dropped
     grading_status    int default 0 null, -- 0: Not started Grading, 1: Grading In Progress, 2: Completed Grading, 3: Sent to Student
     grade_point       int           null, -- 0~100
     grade             char          null, -- A,B,C,D,F
     constraint student_course_enrollment_course_session_fk
-        foreign key (course_id) references course_session (course_session_id),
+        foreign key (course_session_id) references course_session (course_session_id),
     constraint student_course_enrollment_student_fk
         foreign key (student_id) references student (student_id)
 );
