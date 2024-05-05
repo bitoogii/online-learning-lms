@@ -6,7 +6,7 @@ create table course
     course_desc varchar(100) null
 );
 
-create table instuctor
+create table instructor
 (
     instructor_id   int         not null
         primary key,
@@ -24,7 +24,7 @@ create table course_session
     constraint course_session_course_fk
         foreign key (course_id) references course (course_id),
     constraint course_session_instructor_fk
-        foreign key (instructor_id) references instuctor (instructor_id)
+        foreign key (instructor_id) references instructor (instructor_id)
 );
 
 create table assignment
