@@ -50,13 +50,32 @@ WHERE i.instructor_id IN
        HAVING COUNT(*) > 1);
 
 -- 22) Retrieve the list of students who have not submitted an assignment for a specific course.
-
+select *
+from student s
+         inner join student_course_enrollment sce on s.student_id = sce.student_id
+         inner join course_session cs on sce.course_session_id = cs.course_session_id
+         inner join assignment a on cs.course_session_id = a.course_session_id
+         left join assignment_submission asub on asub.student_course_id = sce.student_course_id
+where cs.course_id = 1
+  and asub.submission_id is null;
 
 -- 23) Retrieve the list of courses that have the highest average grade.
+select c.course_id
+from course c
+         inner join course_session cs on c.course_id = cs.course_id
+         inner join student_course_enrollment sce on sce.course_session_id = cs.course_session_id
+group by c.course_id
+order by avg(sce.grade_point) desc
+limit 1;
 
 -- 24) Retrieve the list of assignments that have a grade average higher than the overall grade average.
+select asub.assignment_id, avg(asub.grade_point) as average_grade
+from assignment_submission asub
+group by asub.assignment_id
+having avg(asub.grade_point) > (select avg(grade_point) from assignment_submission);
 
 -- 25) Retrieve the list of courses that have at least one student with a grade of F.
+
 
 -- 26) Retrieve the list of students who have the same grade in all their courses.
 
