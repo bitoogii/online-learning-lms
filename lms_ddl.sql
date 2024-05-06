@@ -3,18 +3,18 @@ create schema lms;
 use lms;
 
 create table course (
-    course_id int not null auto_increment primary key,
+    course_id int not null primary key,
     course_name varchar(50) null,
     course_desc varchar(100) null
 );
 
 create table instructor (
-    instructor_id int not null auto_increment primary key,
+    instructor_id int not null primary key,
     instructor_name varchar(50) null
 );
 
 create table course_session (
-    course_session_id int not null auto_increment primary key,
+    course_session_id int not null primary key,
     instructor_id int not null,
     start_date date null,
     end_date date null,
@@ -24,7 +24,7 @@ create table course_session (
 );
 
 create table assignment (
-    assignment_id int not null auto_increment primary key,
+    assignment_id int not null primary key,
     course_session_id int not null,
     start_date datetime not null,
     due_date datetime not null,
@@ -32,13 +32,13 @@ create table assignment (
 );
 
 create table student (
-    student_id int auto_increment primary key,
+    student_id int primary key,
     student_name varchar(50) null,
     sex char null -- F,M
 );
 
 create table student_course_enrollment (
-    student_course_id int auto_increment primary key,
+    student_course_id int primary key,
     student_id int not null,
     course_session_id int not null,
     enroll_status int default 0 not null,
@@ -54,7 +54,7 @@ create table student_course_enrollment (
 );
 
 create table assignment_submission (
-    submission_id int not null auto_increment primary key,
+    submission_id int not null primary key,
     student_course_id int not null,
     assignment_id int not null,
     submission varchar(255) null,
