@@ -206,17 +206,78 @@ ORDER BY submission_rate
 LIMIT 1;
 
 -- 38) Retrieve the list of students who have the highest average grade for a specific course.
+SELECT s.student_id
+FROM student s
+         JOIN student_course_enrollment sce ON s.student_id = sce.student_id
+         JOIN course_session cs ON sce.course_session_id = cs.course_session_id
+         JOIN course c ON cs.course_id = c.course_id
+WHERE c.course_id = 1
+GROUP BY s.student_id
+ORDER BY AVG(s.student_id) DESC
+LIMIT 1;
 
 -- 39) Retrieve the list of courses with the highest percentage of students who have completed all
 -- assignments.
+SELECT cs.course_id,
+       COUNT(DISTINCT sce.student_id)                  AS total_students,
+       COUNT(DISTINCT CASE
+                          WHEN sub_count.total_assignments = sub_count.total_submissions
+                              THEN sce.student_id END) AS completed_students,
+       COUNT(DISTINCT CASE WHEN sub_count.total_assignments = sub_count.total_submissions THEN sce.student_id END) /
+       COUNT(DISTINCT sce.student_id) * 100            AS completion_percentage
+FROM course_session cs
+         JOIN
+     course c ON cs.course_id = c.course_id
+         JOIN
+     student_course_enrollment sce ON cs.course_session_id = sce.course_session_id
+         LEFT JOIN (SELECT sce.course_session_id,
+                           COUNT(DISTINCT a.assignment_id)    AS total_assignments,
+                           COUNT(DISTINCT asub.submission_id) AS total_submissions
+                    FROM student_course_enrollment sce
+                             JOIN
+                         assignment a ON sce.course_session_id = a.course_session_id
+                             LEFT JOIN
+                         assignment_submission asub ON sce.student_course_id = asub.student_course_id
+                    GROUP BY sce.course_session_id) AS sub_count ON cs.course_session_id = sub_count.course_session_id
+GROUP BY cs.course_id, c.course_name
+ORDER BY completion_percentage DESC
+LIMIT 1;
 
 -- 40) Retrieve the list of students who have not submitted any assignments for a specific course.
+SELECT s.student_id,
+       s.student_name
+FROM student s
+         JOIN
+     student_course_enrollment sce ON s.student_id = sce.student_id
+         JOIN
+     course_session cs ON sce.course_session_id = cs.course_session_id
+         LEFT JOIN
+     assignment_submission asub ON sce.student_course_id = asub.student_course_id
+WHERE cs.course_id = 1
+  AND asub.submission_id IS NULL;
 
 -- 41) Retrieve the list of courses with the lowest average grade.
+SELECT c.course_id
+FROM course c
+         JOIN course_session cs ON c.course_id = cs.course_id
+         JOIN student_course_enrollment sce ON cs.course_session_id = sce.course_session_id
+GROUP BY c.course_id
+ORDER BY AVG(sce.grade_point)
+LIMIT 1;
 
 -- 42) Retrieve the list of assignments that have the highest average grade.
+SELECT a.assignment_id, AVG(asub.grade_point)
+FROM course c
+         JOIN course_session cs ON c.course_id = cs.course_id
+         JOIN student_course_enrollment sce ON cs.course_session_id = sce.course_session_id
+         JOIN assignment a ON cs.course_session_id = a.course_session_id
+         JOIN assignment_submission asub ON sce.student_course_id = asub.student_course_id
+GROUP BY a.assignment_id
+ORDER BY AVG(asub.grade_point) DESC
+LIMIT 1;
 
 -- 43) Retrieve the list of students who have the highest overall grade across all courses.
+
 
 -- 44) Retrieve the list of assignments that have not been graded yet.
 
