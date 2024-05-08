@@ -1,3 +1,8 @@
+INSERT INTO semester (semester_id, season_name, start_date, end_date, year)
+VALUES 
+(1, 'SEM A', '2024-01-01', '2025-01-01', '2024'),
+(2, 'SEM B', '2024-01-01', '2025-01-01', '2024');
+
 INSERT INTO course (course_id, course_name, course_desc) VALUES 
 (1, '101', 'Introduction to Computer Science'),
 (2, '102', 'Data Structures and Algorithms'),
@@ -14,15 +19,15 @@ INSERT INTO instructor (instructor_id, instructor_name) VALUES
 (3, 'Michael Williams'),
 (4, 'Sarah Brown');
 
-INSERT INTO course_session (course_session_id, instructor_id, start_date, end_date, course_id) VALUES 
-(1, 1, '2024-09-01', '2024-12-15', 1),
-(2, 2, '2024-09-01', '2024-12-15', 2),
-(3, 3, '2024-09-01', '2024-12-15', 3),
-(4, 4, '2024-09-01', '2024-12-15', 4),
-(5, 1, '2024-09-01', '2024-12-15', 5),
-(6, 2, '2024-09-01', '2024-12-15', 6),
-(7, 3, '2024-09-01', '2024-12-15', 7),
-(8, 4, '2024-09-01', '2024-12-15', 8);
+INSERT INTO course_session (course_session_id, instructor_id, start_date, end_date, course_id, semester_id) VALUES 
+(1, 1, '2024-09-01', '2024-12-15', 1, 1),
+(2, 2, '2024-09-01', '2024-12-15', 2, 1),
+(3, 3, '2024-09-01', '2024-12-15', 3, 1),
+(4, 4, '2024-09-01', '2024-12-15', 4, 1),
+(5, 1, '2024-09-01', '2024-12-15', 5, 2),
+(6, 2, '2024-09-01', '2024-12-15', 6, 2),
+(7, 3, '2024-09-01', '2024-12-15', 7, 2),
+(8, 4, '2024-09-01', '2024-12-15', 8, 2);
 
 INSERT INTO assignment (assignment_id, course_session_id, start_date, due_date) VALUES 
 (1, 1, '2024-09-15', '2024-10-15'),

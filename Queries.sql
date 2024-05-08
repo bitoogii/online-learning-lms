@@ -863,6 +863,15 @@ WHERE ass.submit_date > a.due_date
 GROUP BY s.student_id;
 
 -- 83) Retrieve the list of courses that have the lowest average grade for a particular semester.
+SELECT c.course_name, AVG(sce.grade_point) AS average_grade_point
+FROM course c
+INNER JOIN course_session cs
+ON cs.course_id = c.course_id
+INNER JOIN student_course_enrollment sce
+ON sce.course_session_id = cs.course_session_id
+WHERE cs.semester_id = 1
+GROUP BY c.course_id
+ORDER BY average_grade_point;
 
 -- 84) Retrieve the list of students who have not submitted any assignment for a particular course.
 SELECT s.student_name
