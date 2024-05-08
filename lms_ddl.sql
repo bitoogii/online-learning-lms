@@ -13,14 +13,26 @@ create table instructor (
     instructor_name varchar(50) null
 );
 
+create table semester
+(
+    semester_id int         not null
+        primary key,
+    season_name varchar(10) null,
+    start_date  date        null,
+    end_date    date        null,
+    year        year        null
+);
+
 create table course_session (
     course_session_id int not null primary key,
     instructor_id int not null,
     start_date date null,
     end_date date null,
     course_id int null,
+    semester_id       int  null,
     constraint course_session_course_fk foreign key (course_id) references course (course_id),
-    constraint course_session_instructor_fk foreign key (instructor_id) references instructor (instructor_id)
+    constraint course_session_instructor_fk foreign key (instructor_id) references instructor (instructor_id),
+    constraint course_session_semester_fk foreign key (semester_id) references semester (semester_id)
 );
 
 create table assignment (
