@@ -5,7 +5,7 @@ use lms;
 create table course (
     course_id int not null primary key,
     course_name varchar(50) null,
-    course_desc varchar(100) null
+    course_desc varchar(300) null
 );
 
 create table instructor (
