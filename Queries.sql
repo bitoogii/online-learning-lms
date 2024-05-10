@@ -686,7 +686,7 @@ FROM student s
 INNER JOIN student_course_enrollment sce
 ON sce.student_id = s.student_id
 INNER JOIN course_session cs
-ON cs.course_session_id = cs.course_session_id
+ON cs.course_session_id = sce.course_session_id
 LEFT JOIN assignment_submission ass
 ON ass.student_course_id = sce.student_course_id
 GROUP BY s.student_id
@@ -992,7 +992,7 @@ WHERE ass.submit_date > a.due_date;
 SELECT c.course_name, COUNT(sce.student_id)
 FROM student_course_enrollment sce
 INNER JOIN course_session cs
-ON sce.course_session_id = sce.course_session_id
+ON cs.course_session_id = sce.course_session_id
 INNER JOIN course c
 ON c.course_id = cs.course_id
 GROUP BY cs.course_id
